@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
 import { Github, Download, FileArchive, Loader2, CheckCircle2, AlertCircle, Send, Bot, User, Settings, X } from 'lucide-react';
+import { fetchGithubRepoData } from '@/lib/github';
 
 const EXAMPLES = [
   { name: 'React', url: 'https://github.com/facebook/react' },
@@ -60,18 +61,8 @@ export default function Home() {
       setSkillMarkdown('');
 
       // 1. Fetch repo data
-      const res = await fetch('/api/github', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: targetUrl }),
-      });
+      const repoData = await fetchGithubRepoData(targetUrl);
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to fetch repository data');
-      }
-
-      const repoData = await res.json();
       setRepoName(repoData.metadata.name);
       setLoadingStep(2);
 

@@ -19,7 +19,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
+  output: process.env.GITHUB_ACTIONS ? 'export' : 'standalone',
+  basePath: process.env.GITHUB_ACTIONS ? '/ClaudeSkillForge' : '',
+  assetPrefix: process.env.GITHUB_ACTIONS ? '/ClaudeSkillForge/' : '',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
