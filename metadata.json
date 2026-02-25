@@ -1,0 +1,5 @@
+{
+  "name": "Claude Skill Forge",
+  "description": "Convert public GitHub repositories into SKILL.md files for Claude Code.",
+  "requestFramePermissions": []
+}
